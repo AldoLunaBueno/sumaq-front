@@ -1,12 +1,17 @@
-import { Clock, Thermometer, Droplets, Cloud, Sprout } from "lucide-react";
+import { Clock, Thermometer, Droplets, Cloud, Sprout, Filter } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { MobileNavigation } from "@/components/MobileNavigation";
 import { useSensorData } from "@/hooks/useSensorData";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+
+type SensorFilter = "all" | "temperature" | "humidity" | "co2" | "soil";
 
 export default function History() {
   const { history } = useSensorData();
+  const [selectedFilter, setSelectedFilter] = useState<SensorFilter>("all");
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -25,6 +30,14 @@ export default function History() {
     });
   };
 
+  const filterButtons = [
+    { id: "all" as SensorFilter, label: "Todos", icon: Filter },
+    { id: "temperature" as SensorFilter, label: "Temperatura", icon: Thermometer },
+    { id: "humidity" as SensorFilter, label: "Humedad", icon: Droplets },
+    { id: "co2" as SensorFilter, label: "CO₂", icon: Cloud },
+    { id: "soil" as SensorFilter, label: "Suelo", icon: Sprout },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -37,6 +50,28 @@ export default function History() {
 
       {/* History Content */}
       <main className="px-4 py-6 pb-24">
+        {/* Filter Buttons */}
+        <div className="mb-6">
+          <h3 className="text-sm font-medium text-muted-foreground mb-3">Filtrar por sensor:</h3>
+          <div className="flex flex-wrap gap-2">
+            {filterButtons.map((filter) => {
+              const Icon = filter.icon;
+              return (
+                <Button
+                  key={filter.id}
+                  variant={selectedFilter === filter.id ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedFilter(filter.id)}
+                  className="gap-1"
+                >
+                  <Icon className="h-3 w-3" />
+                  {filter.label}
+                </Button>
+              );
+            })}
+          </div>
+        </div>
+
         <div className="space-y-4">
           {history.length === 0 ? (
             <Card className="shadow-card">
@@ -66,52 +101,60 @@ export default function History() {
                 <CardContent className="pt-0">
                   <div className="grid grid-cols-2 gap-4">
                     {/* Temperature */}
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-temperature/20">
-                        <Thermometer className="h-4 w-4 text-temperature" />
+                    {(selectedFilter === "all" || selectedFilter === "temperature") && (
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-temperature/20">
+                          <Thermometer className="h-4 w-4 text-temperature" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Temperatura</p>
+                          <p className="text-sm font-semibold">{reading.temperature}°C</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">Temperatura</p>
-                        <p className="text-sm font-semibold">{reading.temperature}°C</p>
-                      </div>
-                    </div>
+                    )}
 
                     {/* Humidity */}
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-humidity/20">
-                        <Droplets className="h-4 w-4 text-humidity" />
+                    {(selectedFilter === "all" || selectedFilter === "humidity") && (
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-humidity/20">
+                          <Droplets className="h-4 w-4 text-humidity" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Humedad</p>
+                          <p className="text-sm font-semibold">{reading.humidity}%</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">Humedad</p>
-                        <p className="text-sm font-semibold">{reading.humidity}%</p>
-                      </div>
-                    </div>
+                    )}
 
                     {/* CO2 */}
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-co2/20">
-                        <Cloud className="h-4 w-4 text-co2" />
+                    {(selectedFilter === "all" || selectedFilter === "co2") && (
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-co2/20">
+                          <Cloud className="h-4 w-4 text-co2" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">CO₂</p>
+                          <p className="text-sm font-semibold">{reading.co2} ppm</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">CO₂</p>
-                        <p className="text-sm font-semibold">{reading.co2} ppm</p>
-                      </div>
-                    </div>
+                    )}
 
                     {/* Soil Status */}
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-soil/20">
-                        <Sprout className="h-4 w-4 text-soil" />
+                    {(selectedFilter === "all" || selectedFilter === "soil") && (
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-soil/20">
+                          <Sprout className="h-4 w-4 text-soil" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Suelo</p>
+                          <Badge 
+                            className={cn("text-xs", getStatusColor(reading.soilStatus))}
+                          >
+                            {reading.soilStatus}
+                          </Badge>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">Suelo</p>
-                        <Badge 
-                          className={cn("text-xs", getStatusColor(reading.soilStatus))}
-                        >
-                          {reading.soilStatus}
-                        </Badge>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>

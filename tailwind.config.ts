@@ -120,7 +120,9 @@ export default {
 			backgroundImage: {
 				'gradient-nature': 'var(--gradient-nature)',
 				'gradient-earth': 'var(--gradient-earth)',
-				'gradient-sky': 'var(--gradient-sky)'
+				'gradient-sky': 'var(--gradient-sky)',
+				'gradient-forest': 'var(--gradient-forest)',
+				'gradient-coffee': 'var(--gradient-coffee)'
 			},
 			boxShadow: {
 				'soft': 'var(--shadow-soft)',

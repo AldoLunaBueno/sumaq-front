@@ -26,7 +26,7 @@ export default function Dashboard() {
         <div className="relative text-center flex flex-col items-center">
           <div className="flex items-center gap-3">
             <img
-              src="logo_sq.png"
+              src="logo_sq1.png"
               alt="Logo SUMAQ TREE"
               className="w-12 h-12 object-contain"
             />

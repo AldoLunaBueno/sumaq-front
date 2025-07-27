@@ -28,7 +28,7 @@ export default function Dashboard() {
             <img
               src="logo_sq1.png"
               alt="Logo SUMAQ TREE"
-              className="w-12 h-12 object-contain"
+              className="w-12 h-12 object-contain opacity-70"
             />
             <h1 className="text-2xl font-bold drop-shadow-lg">SUMAQ TREE</h1>
           </div>

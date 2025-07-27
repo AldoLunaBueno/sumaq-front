@@ -24,9 +24,10 @@ export function SensorCard({ title, value, unit, icon: Icon, colorClass, status 
         <div className={cn("h-2", colorClass)} />
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className={cn("p-3 rounded-full", colorClass.replace('bg-', 'bg-').replace(/\/\d+/, '/20'))}>
-              <Icon className={cn("h-6 w-6", colorClass.replace('bg-', 'text-'))} />
+            <div className={cn("p-3 rounded-full", colorClass)}>
+              <Icon className="h-6 w-6 text-white" />
             </div>
+
             <div className={cn("w-3 h-3 rounded-full", statusColors[status])} />
           </div>
           

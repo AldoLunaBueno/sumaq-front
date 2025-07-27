@@ -18,12 +18,26 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-gradient-nature text-white px-6 pt-12 pb-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-2">SUMAQ TREE</h1>
-          <h2 className="text-lg font-medium opacity-90">Monitoreo de Cultivo</h2>
+      <header
+        className="relative text-white px-6 pt-12 pb-8 bg-cover bg-center"
+        style={{ backgroundImage: "url('fondo1.jpg')" }}
+      >
+        <div className="bg-black bg-opacity-40 absolute inset-0"></div>
+        <div className="relative text-center flex flex-col items-center">
+          <div className="flex items-center gap-3">
+            <img
+              src="logo_sq.png"
+              alt="Logo SUMAQ TREE"
+              className="w-12 h-12 object-contain"
+            />
+            <h1 className="text-2xl font-bold">SUMAQ TREE</h1>
+          </div>
+          <h2 className="text-lg font-medium opacity-90 mt-2">
+            Monitoreo de Cultivo
+          </h2>
         </div>
       </header>
+
 
       {/* Main Content */}
       <main className="px-6 py-6 pb-24">

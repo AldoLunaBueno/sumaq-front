@@ -30,7 +30,7 @@ export default function Dashboard() {
               alt="Logo SUMAQ TREE"
               className="w-12 h-12 object-contain"
             />
-            <h1 className="text-2xl font-bold">SUMAQ TREE</h1>
+            <h1 className="text-2xl font-bold drop-shadow-lg">SUMAQ TREE</h1>
           </div>
           <h2 className="text-lg font-medium opacity-90 mt-2">
             Monitoreo de Cultivo

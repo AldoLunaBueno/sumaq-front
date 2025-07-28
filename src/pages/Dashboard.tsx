@@ -47,15 +47,15 @@ export default function Dashboard() {
             onClick={refreshData}
             disabled={isRefreshing}
             variant="outline"
-            className="gap-2"
+            className="gap-2 min-h-[48px] px-6 text-base font-semibold active:scale-95 transition-transform"
           >
-            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
             {isRefreshing ? 'Actualizando...' : 'Refrescar Datos'}
           </Button>
         </div>
 
         {/* Sensor Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <SensorCard
             title="Temperatura"
             value={currentData.temperature}

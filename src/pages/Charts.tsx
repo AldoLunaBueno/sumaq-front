@@ -35,7 +35,7 @@ export default function Charts() {
       </header>
 
       {/* Charts Content */}
-      <main className="px-4 py-6 pb-24 space-y-6">
+      <main className="px-6 py-6 pb-24 space-y-8">
         {/* Temperature Chart */}
         <Card className="shadow-card">
           <CardHeader>
@@ -45,7 +45,7 @@ export default function Charts() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
+            <div className="h-72 md:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -88,7 +88,7 @@ export default function Charts() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
+            <div className="h-72 md:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -131,7 +131,7 @@ export default function Charts() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
+            <div className="h-72 md:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />

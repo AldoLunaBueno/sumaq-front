@@ -94,11 +94,11 @@ export default function RoyaDetection() {
         <Card className="shadow-card">
           <CardContent className="p-6">
             <div className="text-center space-y-4">
-              <Button
+                <Button
                 onClick={scanCrop}
                 disabled={isScanning}
                 size="lg"
-                className="w-full gap-2"
+                className="w-full gap-2 min-h-[56px] text-base font-semibold"
               >
                 <Scan className={`h-5 w-5 ${isScanning ? 'animate-spin' : ''}`} />
                 {isScanning ? 'Escaneando cultivo...' : 'Escanear Cultivo'}

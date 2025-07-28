@@ -123,5 +123,41 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Mobile-optimized scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Better touch targets */
+  button, [role="button"], .clickable {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent iOS zoom on input focus */
+  input[type="text"], 
+  input[type="email"], 
+  input[type="password"], 
+  input[type="number"], 
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Improve mobile readability */
+  @media (max-width: 768px) {
+    h1 { font-size: 1.75rem; line-height: 1.2; }
+    h2 { font-size: 1.5rem; line-height: 1.3; }
+    h3 { font-size: 1.25rem; line-height: 1.4; }
+    
+    .card {
+      border-radius: 1rem;
+    }
   }
 }

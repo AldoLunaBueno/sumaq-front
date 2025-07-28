@@ -92,7 +92,7 @@ RESUMEN:
             <Button
               onClick={generateReport}
               disabled={isGenerating}
-              className="w-full gap-2"
+              className="w-full gap-2 min-h-[56px] text-base font-semibold"
             >
               <FileText className={`h-4 w-4 ${isGenerating ? 'animate-pulse' : ''}`} />
               {isGenerating ? 'Generando reporte...' : 'Generar Reporte'}
@@ -147,7 +147,7 @@ RESUMEN:
               
               <Button
                 onClick={downloadReport}
-                className="w-full gap-2"
+                className="w-full gap-2 min-h-[56px] text-base font-semibold"
                 variant="outline"
               >
                 <Download className="h-4 w-4" />

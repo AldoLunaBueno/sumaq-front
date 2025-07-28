@@ -49,22 +49,22 @@ export default function History() {
       </header>
 
       {/* History Content */}
-      <main className="px-4 py-6 pb-24">
+      <main className="px-6 py-6 pb-24">
         {/* Filter Buttons */}
         <div className="mb-6">
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Filtrar por sensor:</h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {filterButtons.map((filter) => {
               const Icon = filter.icon;
               return (
                 <Button
                   key={filter.id}
                   variant={selectedFilter === filter.id ? "default" : "outline"}
-                  size="sm"
+                  size="default"
                   onClick={() => setSelectedFilter(filter.id)}
-                  className="gap-1"
+                  className="gap-2 min-h-[44px] text-sm"
                 >
-                  <Icon className="h-3 w-3" />
+                  <Icon className="h-4 w-4" />
                   {filter.label}
                 </Button>
               );
@@ -99,7 +99,7 @@ export default function History() {
                   </div>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     {/* Temperature */}
                     {(selectedFilter === "all" || selectedFilter === "temperature") && (
                       <div className="flex items-center gap-3">

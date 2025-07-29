@@ -51,7 +51,7 @@ export default function Reports() {
     // Roya detection
     yPos += 60;
     doc.setFontSize(16);
-    doc.text('DETECCIÓN DE ROYA:', 20, yPos);
+    doc.text('DETECCIÓN DE ROYA:', 20, yPos + 50);
     
     doc.setFontSize(12);
     yPos += 15;

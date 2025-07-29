@@ -7,7 +7,6 @@ import { useRoyaDetection } from "@/hooks/useRoyaDetection";
 import { useReports } from "@/hooks/useReports";
 import { useState } from "react";
 import jsPDF from 'jspdf';
-import '@fonts/Montserrat-Regular';
 
 export default function Reports() {
   const { currentData, history } = useSensorData();
@@ -28,11 +27,9 @@ export default function Reports() {
 
   const downloadReport = () => {
     const doc = new jsPDF();
-
     const date = new Date().toLocaleDateString('es-ES');
     
     // Header
-    doc.setFont("Montserrat");
     doc.setFontSize(20);
     doc.text('REPORTE DIARIO - SUMAQ TREE', 20, 20);
     

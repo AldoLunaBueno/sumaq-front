@@ -139,7 +139,7 @@ export default function History() {
                       </div>
                     )}
 
-                    {/* Soil Status */}
+                    {/* Soil moisture */}
                     {(selectedFilter === "all" || selectedFilter === "soil") && (
                       <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-soil/20">
@@ -147,11 +147,7 @@ export default function History() {
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">Humedad del suelo</p>
-                          <Badge 
-                            className={cn("text-xs", reading.soilHumidity < 30 ? "text-red-600" : reading.soilHumidity < 50 ? "text-yellow-600" : "text-green-600")}
-                          >
-                            {reading.soilHumidity}%
-                          </Badge>
+                          <p className="text-sm font-semibold">{reading.soilHumidity}%</p>
                         </div>
                       </div>
                     )}

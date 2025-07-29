@@ -54,14 +54,14 @@ export default function Reports() {
     doc.text('DETECCIÓN DE ROYA:', 20, yPos);
     
     doc.setFontSize(12);
-    yPos += 25;
+    yPos += 15;
     doc.text(`• Estado: ${detection.status}`, 25, yPos);
     doc.text(`• Nivel de Riesgo: ${detection.risk}`, 25, yPos + 10);
     doc.text(`• Confianza: ${detection.confidence}%`, 25, yPos + 20);
     
     // Reports and observations
     if (reports.length > 0) {
-      yPos += 40;
+      yPos += 50;
       doc.setFontSize(16);
       doc.text('REPORTES Y OBSERVACIONES:', 20, yPos);
       

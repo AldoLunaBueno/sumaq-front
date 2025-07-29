@@ -61,7 +61,7 @@ export default function Reports() {
     
     // Reports and observations
     if (reports.length > 0) {
-      yPos += 50;
+      yPos += 40;
       doc.setFontSize(16);
       doc.text('REPORTES Y OBSERVACIONES:', 20, yPos);
       
@@ -105,7 +105,7 @@ export default function Reports() {
       doc.addPage();
       yPos = 20;
     }
-    
+    yPos += 20;
     doc.setFontSize(16);
     doc.text('RESUMEN:', 20, yPos);
     

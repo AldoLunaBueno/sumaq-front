@@ -4,15 +4,15 @@ export interface CropReport {
   id: string;
   timestamp: Date;
   description: string;
-  photo?: File;
-  photoUrl?: string;
+  photos?: File[];
+  photoUrls?: string[];
 }
 
 export function useReports() {
   const [reports, setReports] = useState<CropReport[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const addReport = useCallback(async (description: string, photo?: File) => {
+  const addReport = useCallback(async (description: string, photos?: File[]) => {
     setIsSubmitting(true);
     
     // Simulate API delay
@@ -22,8 +22,8 @@ export function useReports() {
       id: Date.now().toString(),
       timestamp: new Date(),
       description,
-      photo,
-      photoUrl: photo ? URL.createObjectURL(photo) : undefined
+      photos,
+      photoUrls: photos?.map(photo => URL.createObjectURL(photo))
     };
     
     setReports(prev => [newReport, ...prev]);

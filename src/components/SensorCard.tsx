@@ -9,9 +9,10 @@ interface SensorCardProps {
   icon: LucideIcon;
   colorClass: string;
   status?: "good" | "warning" | "critical";
+  suggestion?: string;
 }
 
-export function SensorCard({ title, value, unit, icon: Icon, colorClass, status = "good" }: SensorCardProps) {
+export function SensorCard({ title, value, unit, icon: Icon, colorClass, status = "good", suggestion }: SensorCardProps) {
   const statusColors = {
     good: "text-primary",
     warning: "text-yellow-600",
@@ -37,6 +38,11 @@ export function SensorCard({ title, value, unit, icon: Icon, colorClass, status 
               {value}
               <span className="text-sm font-normal text-muted-foreground ml-1">{unit}</span>
             </p>
+            {suggestion && (
+              <p className="text-xs text-muted-foreground/80 mt-2 leading-tight">
+                💡 {suggestion}
+              </p>
+            )}
           </div>
         </div>
       </CardContent>

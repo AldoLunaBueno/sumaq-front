@@ -12,27 +12,35 @@ interface ReportFormProps {
 
 export function ReportForm({ onClose }: ReportFormProps) {
   const [description, setDescription] = useState("");
-  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [selectedPhotos, setSelectedPhotos] = useState<File[]>([]);
+  const [photoPreviews, setPhotoPreviews] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { addReport, isSubmitting } = useReports();
   const { toast } = useToast();
 
   const handlePhotoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedPhoto(file);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setPhotoPreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+    const files = Array.from(event.target.files || []);
+    if (files.length > 0) {
+      setSelectedPhotos(prev => [...prev, ...files]);
+      
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setPhotoPreviews(prev => [...prev, e.target?.result as string]);
+        };
+        reader.readAsDataURL(file);
+      });
     }
   };
 
-  const removePhoto = () => {
-    setSelectedPhoto(null);
-    setPhotoPreview(null);
+  const removePhoto = (index: number) => {
+    setSelectedPhotos(prev => prev.filter((_, i) => i !== index));
+    setPhotoPreviews(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const removeAllPhotos = () => {
+    setSelectedPhotos([]);
+    setPhotoPreviews([]);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -51,7 +59,7 @@ export function ReportForm({ onClose }: ReportFormProps) {
     }
 
     try {
-      await addReport(description, selectedPhoto || undefined);
+      await addReport(description, selectedPhotos);
       toast({
         title: "Reporte enviado",
         description: "Tu observación ha sido registrada exitosamente",
@@ -91,25 +99,51 @@ export function ReportForm({ onClose }: ReportFormProps) {
 
           <div>
             <label className="text-sm font-medium text-foreground mb-2 block">
-              Foto (opcional)
+              Fotos (opcional)
             </label>
             
-            {photoPreview ? (
-              <div className="relative">
-                <img
-                  src={photoPreview}
-                  alt="Preview"
-                  className="w-full h-48 object-cover rounded-md border"
-                />
-                <Button
-                  type="button"
-                  variant="destructive"
-                  size="sm"
-                  className="absolute top-2 right-2"
-                  onClick={removePhoto}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
+            {photoPreviews.length > 0 ? (
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2">
+                  {photoPreviews.map((preview, index) => (
+                    <div key={index} className="relative">
+                      <img
+                        src={preview}
+                        alt={`Preview ${index + 1}`}
+                        className="w-full h-24 object-cover rounded-md border"
+                      />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-1 right-1 h-6 w-6 p-0"
+                        onClick={() => removePhoto(index)}
+                      >
+                        <X className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 gap-2"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <Camera className="h-4 w-4" />
+                    Añadir más
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={removeAllPhotos}
+                  >
+                    Quitar todas
+                  </Button>
+                </div>
               </div>
             ) : (
               <Button
@@ -119,7 +153,7 @@ export function ReportForm({ onClose }: ReportFormProps) {
                 onClick={() => fileInputRef.current?.click()}
               >
                 <Camera className="h-5 w-5" />
-                Tomar foto
+                Tomar fotos
               </Button>
             )}
             
@@ -128,6 +162,7 @@ export function ReportForm({ onClose }: ReportFormProps) {
               type="file"
               accept="image/*"
               capture="environment"
+              multiple
               onChange={handlePhotoSelect}
               className="hidden"
             />

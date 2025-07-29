@@ -67,6 +67,7 @@ export default function Dashboard() {
             icon={Thermometer}
             colorClass="bg-temperature"
             status="good"
+            suggestion="Ideal: 20-25°C. Temperaturas constantes previenen estrés y roya"
           />
           
           <SensorCard
@@ -76,6 +77,7 @@ export default function Dashboard() {
             icon={Droplets}
             colorClass="bg-humidity"
             status="good"
+            suggestion="Ideal: 40-60%. Humedad alta favorece la roya del café"
           />
           
           <SensorCard
@@ -85,6 +87,7 @@ export default function Dashboard() {
             icon={Cloud}
             colorClass="bg-co2"
             status="good"
+            suggestion="Ideal: 350-450 ppm. Niveles equilibrados mejoran resistencia"
           />
           
           <SensorCard
@@ -94,6 +97,7 @@ export default function Dashboard() {
             icon={Sprout}
             colorClass="bg-soil"
             status={getSoilHumidityStatus(currentData.soilHumidity)}
+            suggestion="Ideal: 50-70%. Evita encharcamiento que propicia roya"
           />
           
           <SensorCard
@@ -103,6 +107,7 @@ export default function Dashboard() {
             icon={Sun}
             colorClass="bg-sunlight"
             status={getSunlightStatus(currentData.sunlight)}
+            suggestion="Ideal: 60-80%. Luz solar adecuada fortalece defensas naturales"
           />
         </div>
 

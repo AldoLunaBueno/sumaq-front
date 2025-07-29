@@ -4,11 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MobileNavigation } from "@/components/MobileNavigation";
 import { useSensorData } from "@/hooks/useSensorData";
 import { useRoyaDetection } from "@/hooks/useRoyaDetection";
+import { useReports } from "@/hooks/useReports";
 import { useState } from "react";
+import jsPDF from 'jspdf';
 
 export default function Reports() {
   const { currentData, history } = useSensorData();
   const { detection } = useRoyaDetection();
+  const { reports } = useReports();
   const [isGenerating, setIsGenerating] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
 
@@ -23,45 +26,97 @@ export default function Reports() {
   };
 
   const downloadReport = () => {
-    // Simulate PDF download
-    const reportData = {
-      date: new Date().toLocaleDateString('es-ES'),
-      sensors: currentData,
-      roya: detection,
-      historyCount: history.length
-    };
+    const doc = new jsPDF();
+    const date = new Date().toLocaleDateString('es-ES');
     
-    console.log('Downloading report:', reportData);
+    // Header
+    doc.setFontSize(20);
+    doc.text('REPORTE DIARIO - SUMAQ TREE', 20, 20);
     
-    // Create a blob with sample PDF content
-    const content = `REPORTE DIARIO - SUMAQ TREE
-Fecha: ${reportData.date}
-
-DATOS DE SENSORES:
-- Temperatura: ${currentData.temperature}°C
-- Humedad: ${currentData.humidity}%
-- CO₂: ${currentData.co2} ppm
-- Humedad del Suelo: ${currentData.soilHumidity}%
-- Luz Solar: ${currentData.sunlight}%
-
-DETECCIÓN DE ROYA:
-- Estado: ${detection.status}
-- Nivel de Riesgo: ${detection.risk}
-- Confianza: ${detection.confidence}%
-
-RESUMEN:
-- Total de mediciones: ${history.length}
-- Generado automáticamente por SUMAQ TREE Dashboard`;
-
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `reporte-sumaq-${new Date().toISOString().split('T')[0]}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    doc.setFontSize(12);
+    doc.text(`Fecha: ${date}`, 20, 35);
+    
+    // Sensor data
+    doc.setFontSize(16);
+    doc.text('DATOS DE SENSORES:', 20, 55);
+    
+    doc.setFontSize(12);
+    let yPos = 70;
+    doc.text(`• Temperatura: ${currentData.temperature}°C`, 25, yPos);
+    doc.text(`• Humedad: ${currentData.humidity}%`, 25, yPos + 10);
+    doc.text(`• CO₂: ${currentData.co2} ppm`, 25, yPos + 20);
+    doc.text(`• Humedad del Suelo: ${currentData.soilHumidity}%`, 25, yPos + 30);
+    doc.text(`• Luz Solar: ${currentData.sunlight}%`, 25, yPos + 40);
+    
+    // Roya detection
+    yPos += 60;
+    doc.setFontSize(16);
+    doc.text('DETECCIÓN DE ROYA:', 20, yPos);
+    
+    doc.setFontSize(12);
+    yPos += 15;
+    doc.text(`• Estado: ${detection.status}`, 25, yPos);
+    doc.text(`• Nivel de Riesgo: ${detection.risk}`, 25, yPos + 10);
+    doc.text(`• Confianza: ${detection.confidence}%`, 25, yPos + 20);
+    
+    // Reports and observations
+    if (reports.length > 0) {
+      yPos += 40;
+      doc.setFontSize(16);
+      doc.text('REPORTES Y OBSERVACIONES:', 20, yPos);
+      
+      // Sort reports by date
+      const sortedReports = [...reports].sort((a, b) => 
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      );
+      
+      doc.setFontSize(12);
+      sortedReports.forEach((report, index) => {
+        yPos += 20;
+        
+        // Check if we need a new page
+        if (yPos > 250) {
+          doc.addPage();
+          yPos = 20;
+        }
+        
+        const reportDate = report.timestamp.toLocaleDateString('es-ES');
+        const reportTime = report.timestamp.toLocaleTimeString('es-ES');
+        
+        doc.text(`${index + 1}. Fecha: ${reportDate} ${reportTime}`, 25, yPos);
+        yPos += 10;
+        
+        // Split long descriptions into multiple lines
+        const splitDescription = doc.splitTextToSize(report.description, 160);
+        doc.text(splitDescription, 30, yPos);
+        yPos += splitDescription.length * 5;
+        
+        if (report.photos && report.photos.length > 0) {
+          yPos += 5;
+          doc.text(`   Fotos adjuntas: ${report.photos.length}`, 30, yPos);
+          yPos += 10;
+        }
+      });
+    }
+    
+    // Summary
+    yPos += 30;
+    if (yPos > 250) {
+      doc.addPage();
+      yPos = 20;
+    }
+    
+    doc.setFontSize(16);
+    doc.text('RESUMEN:', 20, yPos);
+    
+    doc.setFontSize(12);
+    yPos += 15;
+    doc.text(`• Total de mediciones: ${history.length}`, 25, yPos);
+    doc.text(`• Total de reportes de campo: ${reports.length}`, 25, yPos + 10);
+    doc.text('• Generado automáticamente por SUMAQ TREE Dashboard', 25, yPos + 20);
+    
+    // Save the PDF
+    doc.save(`reporte-sumaq-${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
   return (

@@ -95,26 +95,6 @@ export default function RoyaDetection() {
           </CardContent>
         </Card>
 
-        {/* Scan Button */}
-        <Card className="shadow-card">
-          <CardContent className="p-6">
-            <div className="text-center space-y-4">
-                <Button
-                onClick={scanCrop}
-                disabled={isScanning}
-                size="lg"
-                className="w-full gap-2 min-h-[56px] text-base font-semibold"
-              >
-                <Scan className={`h-5 w-5 ${isScanning ? 'animate-spin' : ''}`} />
-                {isScanning ? 'Escaneando cultivo...' : 'Escanear Cultivo'}
-              </Button>
-              
-              <p className="text-sm text-muted-foreground">
-                Último escaneo: {formatLastScan(detection.lastScan)}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Reports and Observations Section */}
         <Card className="shadow-card">
@@ -156,12 +136,17 @@ export default function RoyaDetection() {
                       </p>
                     </div>
                     <p className="text-sm">{report.description}</p>
-                    {report.photoUrl && (
-                      <img
-                        src={report.photoUrl}
-                        alt="Reporte"
-                        className="w-full h-32 object-cover rounded border"
-                      />
+                    {report.photoUrls && report.photoUrls.length > 0 && (
+                      <div className="grid grid-cols-2 gap-2">
+                        {report.photoUrls.map((url, index) => (
+                          <img
+                            key={index}
+                            src={url}
+                            alt={`Reporte ${index + 1}`}
+                            className="w-full h-24 object-cover rounded border"
+                          />
+                        ))}
+                      </div>
                     )}
                   </div>
                 ))}

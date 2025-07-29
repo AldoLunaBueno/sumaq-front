@@ -7,7 +7,6 @@ import { useRoyaDetection } from "@/hooks/useRoyaDetection";
 import { useReports } from "@/hooks/useReports";
 import { useState } from "react";
 import jsPDF from 'jspdf';
-import '@/fonts/Bebas Neue_Regular';
 
 export default function Reports() {
   const { currentData, history } = useSensorData();
@@ -107,7 +106,6 @@ export default function Reports() {
       yPos = 20;
     }
     yPos += 10;
-    doc.setFont("Bebas Neue_Regular");
     doc.setFontSize(16);
     doc.text('RESUMEN:', 20, yPos);
     

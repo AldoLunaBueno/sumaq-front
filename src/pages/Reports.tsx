@@ -41,7 +41,8 @@ DATOS DE SENSORES:
 - Temperatura: ${currentData.temperature}°C
 - Humedad: ${currentData.humidity}%
 - CO₂: ${currentData.co2} ppm
-- Estado del Suelo: ${currentData.soilStatus}
+- Humedad del Suelo: ${currentData.soilHumidity}%
+- Luz Solar: ${currentData.sunlight}%
 
 DETECCIÓN DE ROYA:
 - Estado: ${detection.status}
@@ -132,8 +133,12 @@ RESUMEN:
                     <p className="text-muted-foreground">{currentData.co2} ppm</p>
                   </div>
                   <div>
-                    <p className="font-medium">Estado del Suelo</p>
-                    <p className="text-muted-foreground">{currentData.soilStatus}</p>
+                    <p className="font-medium">Humedad del Suelo</p>
+                    <p className="text-muted-foreground">{currentData.soilHumidity}%</p>
+                  </div>
+                  <div>
+                    <p className="font-medium">Luz Solar</p>
+                    <p className="text-muted-foreground">{currentData.sunlight}%</p>
                   </div>
                 </div>
                 
@@ -172,8 +177,13 @@ RESUMEN:
             </div>
             
             <div className="flex justify-between items-center">
-              <span className="text-sm text-muted-foreground">Estado del suelo actual</span>
-              <span className="font-semibold">{currentData.soilStatus}</span>
+              <span className="text-sm text-muted-foreground">Humedad del suelo actual</span>
+              <span className="font-semibold">{currentData.soilHumidity}%</span>
+            </div>
+            
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-muted-foreground">Luz solar actual</span>
+              <span className="font-semibold">{currentData.sunlight}%</span>
             </div>
             
             <div className="flex justify-between items-center">

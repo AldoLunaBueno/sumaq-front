@@ -6,7 +6,8 @@ export interface SensorReading {
   temperature: number;
   humidity: number;
   co2: number;
-  soilStatus: "Bueno" | "Regular" | "Crítico";
+  soilHumidity: number;
+  sunlight: number;
 }
 
 export function useSensorData() {
@@ -14,7 +15,8 @@ export function useSensorData() {
     temperature: 22.5,
     humidity: 65,
     co2: 400,
-    soilStatus: "Bueno"
+    soilHumidity: 45,
+    sunlight: 75
   });
   
   const [history, setHistory] = useState<SensorReading[]>([]);
@@ -24,14 +26,10 @@ export function useSensorData() {
     const temperature = Math.round((Math.random() * 10 + 18) * 10) / 10; // 18-28°C
     const humidity = Math.round(Math.random() * 40 + 40); // 40-80%
     const co2 = Math.round(Math.random() * 200 + 350); // 350-550 ppm
-    
-    let soilStatus: "Bueno" | "Regular" | "Crítico";
-    const soilRandom = Math.random();
-    if (soilRandom < 0.6) soilStatus = "Bueno";
-    else if (soilRandom < 0.9) soilStatus = "Regular";
-    else soilStatus = "Crítico";
+    const soilHumidity = Math.round(Math.random() * 50 + 25); // 25-75%
+    const sunlight = Math.round(Math.random() * 40 + 40); // 40-80%
 
-    return { temperature, humidity, co2, soilStatus };
+    return { temperature, humidity, co2, soilHumidity, sunlight };
   }, []);
 
   const refreshData = useCallback(async () => {

@@ -148,9 +148,9 @@ export default function History() {
                         <div>
                           <p className="text-xs text-muted-foreground">Suelo</p>
                           <Badge 
-                            className={cn("text-xs", getStatusColor(reading.soilStatus))}
+                            className={cn("text-xs", reading.soilHumidity < 30 ? "text-red-600" : reading.soilHumidity < 50 ? "text-yellow-600" : "text-green-600")}
                           >
-                            {reading.soilStatus}
+                            {reading.soilHumidity}%
                           </Badge>
                         </div>
                       </div>

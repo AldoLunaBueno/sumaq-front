@@ -1,13 +1,18 @@
-import { Scan, Shield, AlertTriangle, Leaf } from "lucide-react";
+import { Scan, Shield, AlertTriangle, Leaf, FileText, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MobileNavigation } from "@/components/MobileNavigation";
+import { ReportForm } from "@/components/ReportForm";
 import { useRoyaDetection } from "@/hooks/useRoyaDetection";
+import { useReports } from "@/hooks/useReports";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export default function RoyaDetection() {
   const { detection, isScanning, scanCrop, getRiskColor, getRiskBgColor } = useRoyaDetection();
+  const { reports } = useReports();
+  const [showReportForm, setShowReportForm] = useState(false);
 
   const formatLastScan = (date: Date | null) => {
     if (!date) return "No hay escaneos previos";
@@ -108,6 +113,60 @@ export default function RoyaDetection() {
                 Último escaneo: {formatLastScan(detection.lastScan)}
               </p>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Reports and Observations Section */}
+        <Card className="shadow-card">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5 text-primary" />
+              Reportes y Observaciones
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {!showReportForm && (
+              <Button
+                onClick={() => setShowReportForm(true)}
+                className="w-full gap-2"
+                variant="outline"
+              >
+                <Plus className="h-4 w-4" />
+                Nuevo Reporte
+              </Button>
+            )}
+            
+            {showReportForm && (
+              <ReportForm onClose={() => setShowReportForm(false)} />
+            )}
+            
+            {reports.length > 0 && (
+              <div className="space-y-3 mt-4">
+                <h4 className="text-sm font-medium">Reportes Recientes</h4>
+                {reports.slice(0, 3).map((report) => (
+                  <div key={report.id} className="border rounded-lg p-3 space-y-2">
+                    <div className="flex justify-between items-start">
+                      <p className="text-sm text-muted-foreground">
+                        {report.timestamp.toLocaleString('es-ES', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </p>
+                    </div>
+                    <p className="text-sm">{report.description}</p>
+                    {report.photoUrl && (
+                      <img
+                        src={report.photoUrl}
+                        alt="Reporte"
+                        className="w-full h-32 object-cover rounded border"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
 

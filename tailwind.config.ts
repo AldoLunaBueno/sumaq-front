@@ -57,6 +57,7 @@ export default {
 				humidity: 'hsl(var(--humidity))',
 				co2: 'hsl(var(--co2))',
 				soil: 'hsl(var(--soil))',
+				sunlight: 'hsl(var(--sunlight))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

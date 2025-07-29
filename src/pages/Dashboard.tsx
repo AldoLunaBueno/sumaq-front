@@ -1,4 +1,4 @@
-import { Thermometer, Droplets, Cloud, Sprout, RefreshCw } from "lucide-react";
+import { Thermometer, Droplets, Cloud, Sprout, RefreshCw, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SensorCard } from "@/components/SensorCard";
 import { useSensorData } from "@/hooks/useSensorData";
@@ -7,12 +7,16 @@ import { MobileNavigation } from "@/components/MobileNavigation";
 export default function Dashboard() {
   const { currentData, isRefreshing, refreshData } = useSensorData();
 
-  const getSoilStatus = (status: string) => {
-    switch (status) {
-      case "Crítico": return "critical";
-      case "Regular": return "warning";
-      default: return "good";
-    }
+  const getSoilHumidityStatus = (humidity: number) => {
+    if (humidity < 30) return "critical";
+    if (humidity < 50) return "warning";
+    return "good";
+  };
+
+  const getSunlightStatus = (sunlight: number) => {
+    if (sunlight < 50) return "warning";
+    if (sunlight > 90) return "critical";
+    return "good";
   };
 
   return (
@@ -84,12 +88,21 @@ export default function Dashboard() {
           />
           
           <SensorCard
-            title="Estado del Suelo"
-            value={currentData.soilStatus}
-            unit=""
+            title="Humedad del Suelo"
+            value={currentData.soilHumidity}
+            unit="%"
             icon={Sprout}
             colorClass="bg-soil"
-            status={getSoilStatus(currentData.soilStatus) as "good" | "warning" | "critical"}
+            status={getSoilHumidityStatus(currentData.soilHumidity)}
+          />
+          
+          <SensorCard
+            title="Luz Solar"
+            value={currentData.sunlight}
+            unit="%"
+            icon={Sun}
+            colorClass="bg-sunlight"
+            status={getSunlightStatus(currentData.sunlight)}
           />
         </div>
 

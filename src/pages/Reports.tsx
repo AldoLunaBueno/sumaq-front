@@ -7,6 +7,8 @@ import { useRoyaDetection } from "@/hooks/useRoyaDetection";
 import { useReports } from "@/hooks/useReports";
 import { useState } from "react";
 import jsPDF from 'jspdf';
+import { bebasNeueBase64 } from "@/fonts/BebasNeueFont";
+
 
 export default function Reports() {
   const { currentData, history } = useSensorData();
@@ -27,6 +29,11 @@ export default function Reports() {
 
   const downloadReport = () => {
     const doc = new jsPDF();
+
+    doc.addFileToVFS("BebasNeue-Regular.ttf", bebasNeueBase64);
+    doc.addFont("BebasNeue-Regular.ttf","BebasNeue","normal");
+    doc.setFont("BebasNeue");
+
     const date = new Date().toLocaleDateString('es-ES');
     
     // Header

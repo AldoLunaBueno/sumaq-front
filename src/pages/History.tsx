@@ -35,7 +35,7 @@ export default function History() {
     { id: "temperature" as SensorFilter, label: "Temperatura", icon: Thermometer },
     { id: "humidity" as SensorFilter, label: "Humedad", icon: Droplets },
     { id: "co2" as SensorFilter, label: "CO₂", icon: Cloud },
-    { id: "soil" as SensorFilter, label: "Suelo", icon: Sprout },
+    { id: "soil" as SensorFilter, label: "Humedad del suelo", icon: Sprout },
   ];
 
   return (
@@ -146,7 +146,7 @@ export default function History() {
                           <Sprout className="h-4 w-4 text-soil" />
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">Suelo</p>
+                          <p className="text-xs text-muted-foreground">Humedad del suelo</p>
                           <Badge 
                             className={cn("text-xs", reading.soilHumidity < 30 ? "text-red-600" : reading.soilHumidity < 50 ? "text-yellow-600" : "text-green-600")}
                           >

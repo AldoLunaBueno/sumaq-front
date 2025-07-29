@@ -105,7 +105,7 @@ export default function Reports() {
       doc.addPage();
       yPos = 20;
     }
-    yPos += 20;
+    yPos += 10;
     doc.setFontSize(16);
     doc.text('RESUMEN:', 20, yPos);
     

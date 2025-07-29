@@ -51,10 +51,10 @@ export default function Reports() {
     // Roya detection
     yPos += 60;
     doc.setFontSize(16);
-    doc.text('DETECCIÓN DE ROYA:', 20, yPos + 50);
+    doc.text('DETECCIÓN DE ROYA:', 20, yPos);
     
     doc.setFontSize(12);
-    yPos += 15;
+    yPos += 25;
     doc.text(`• Estado: ${detection.status}`, 25, yPos);
     doc.text(`• Nivel de Riesgo: ${detection.risk}`, 25, yPos + 10);
     doc.text(`• Confianza: ${detection.confidence}%`, 25, yPos + 20);

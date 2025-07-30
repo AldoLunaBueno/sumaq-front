@@ -68,43 +68,48 @@ export default function Reports() {
     
     // Reports and observations
     if (reports.length > 0) {
-      yPos += 40;
-      doc.setFontSize(16);
-      doc.text('REPORTES Y OBSERVACIONES:', 20, yPos);
+    yPos += 40;
+    doc.setFontSize(16);
+    doc.text('REPORTES Y OBSERVACIONES:', 20, yPos);
       
-      // Sort reports by date
-      const sortedReports = [...reports].sort((a, b) => 
-        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-      );
-      
+    const sortedReports = [...reports].sort((a, b) =>
+      new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    );
+  
+    doc.setFontSize(12);
+    sortedReports.forEach((report, idx) => {
+      yPos += 20;
+      if (yPos > 250) { doc.addPage(); yPos = 20; }
+    
+      const date = new Date(report.timestamp);
+      doc.setFontSize(14);
+      doc.text(`Reporte ${idx + 1} - ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`, 20, yPos);
+      yPos += 8;
+    
       doc.setFontSize(12);
-      sortedReports.forEach((report, index) => {
-        yPos += 20;
-        
-        // Check if we need a new page
-        if (yPos > 250) {
-          doc.addPage();
-          yPos = 20;
-        }
-        
-        const reportDate = report.timestamp.toLocaleDateString('es-ES');
-        const reportTime = report.timestamp.toLocaleTimeString('es-ES');
-        
-        doc.text(`${index + 1}. Fecha: ${reportDate} ${reportTime}`, 25, yPos);
-        yPos += 10;
-        
-        // Split long descriptions into multiple lines
-        const splitDescription = doc.splitTextToSize(report.description, 160);
-        doc.text(splitDescription, 30, yPos);
-        yPos += splitDescription.length * 5;
-        
-        if (report.photos && report.photos.length > 0) {
-          yPos += 5;
-          doc.text(`   Fotos adjuntas: ${report.photos.length}`, 30, yPos);
-          yPos += 10;
-        }
-      });
-    }
+      const splitDescription = doc.splitTextToSize(`Descripción: ${report.description}`, 160);
+      doc.text(splitDescription, 20, yPos);
+      yPos += splitDescription.length * 5;
+    
+      if (report.photoUrls) {
+        report.photoUrls.forEach((img64, i) => {
+          if (yPos > 220) { doc.addPage(); yPos = 20; }
+          doc.text(`Foto ${i + 1}:`, 20, yPos);
+          yPos += 6;
+          try {
+            doc.addImage(img64, "JPEG", 20, yPos, 60, 40);
+            yPos += 46;
+          } catch (err) {
+            doc.text("Error al cargar imagen", 20, yPos);
+            yPos += 10;
+          }
+        });
+      }
+    
+      yPos += 10;
+    });
+  }
+
     
     // Summary
     yPos += 30;

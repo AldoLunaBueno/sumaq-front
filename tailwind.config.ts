@@ -55,7 +55,8 @@ export default {
 				// Custom sensor colors
 				temperature: 'hsl(var(--temperature))',
 				humidity: 'hsl(var(--humidity))',
-				co2: 'hsl(var(--co2))',
+				ph: 'hsl(var(--ph))',
+				npk: 'hsl(var(--npk))',
 				soil: 'hsl(var(--soil))',
 				sunlight: 'hsl(var(--sunlight))',
 				sidebar: {

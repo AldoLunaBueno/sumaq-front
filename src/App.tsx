@@ -8,6 +8,7 @@ import Charts from "./pages/Charts";
 import History from "./pages/History";
 import RoyaDetection from "./pages/RoyaDetection";
 import Reports from "./pages/Reports";
+import FarmInfo from "./pages/FarmInfo";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/charts" element={<Charts />} />
             <Route path="/history" element={<History />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/farm" element={<FarmInfo />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

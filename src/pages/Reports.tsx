@@ -1,4 +1,4 @@
-import { FileText, Download, Calendar, TrendingUp } from "lucide-react";
+import { FileText, Download, Calendar, TrendingUp, Droplets, Beaker, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MobileNavigation } from "@/components/MobileNavigation";
@@ -8,6 +8,8 @@ import { useReports } from "@/hooks/useReports";
 import { useState } from "react";
 import jsPDF from 'jspdf';
 import { bebasNeueBase64 } from "@/fonts/BebasNeueFont";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 
 export default function Reports() {
@@ -16,6 +18,11 @@ export default function Reports() {
   const { reports } = useReports();
   const [isGenerating, setIsGenerating] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [quantities, setQuantities] = useState({
+    water: 1500,
+    fertilizer: 25,
+    pesticide: 8
+  });
 
   const generateReport = async () => {
     setIsGenerating(true);
@@ -51,12 +58,24 @@ export default function Reports() {
     let yPos = 70;
     doc.text(`• Temperatura: ${currentData.temperature}°C`, 25, yPos);
     doc.text(`• Humedad: ${currentData.humidity}%`, 25, yPos + 10);
-    doc.text(`• CO₂: ${currentData.co2} ppm`, 25, yPos + 20);
-    doc.text(`• Humedad del Suelo: ${currentData.soilHumidity}%`, 25, yPos + 30);
-    doc.text(`• Luz Solar: ${currentData.sunlight}%`, 25, yPos + 40);
+    doc.text(`• pH del Suelo: ${currentData.ph}`, 25, yPos + 20);
+    doc.text(`• NPK: ${currentData.npk} ppm`, 25, yPos + 30);
+    doc.text(`• Humedad del Suelo: ${currentData.soilHumidity}%`, 25, yPos + 40);
+    doc.text(`• Luz Solar: ${currentData.sunlight}%`, 25, yPos + 50);
+    
+    // Quantities used
+    yPos += 70;
+    doc.setFontSize(16);
+    doc.text('INSUMOS UTILIZADOS:', 20, yPos);
+    
+    doc.setFontSize(12);
+    yPos += 15;
+    doc.text(`• Agua: ${quantities.water} litros`, 25, yPos);
+    doc.text(`• Fertilizante: ${quantities.fertilizer} kg`, 25, yPos + 10);
+    doc.text(`• Plaguicida: ${quantities.pesticide} litros`, 25, yPos + 20);
     
     // Roya detection
-    yPos += 60;
+    yPos += 40;
     doc.setFontSize(16);
     doc.text('DETECCIÓN DE ROYA:', 20, yPos);
     
@@ -143,6 +162,66 @@ export default function Reports() {
 
       {/* Main Content */}
       <main className="px-6 py-6 pb-24 space-y-6">
+        {/* Quantities Section */}
+        <Card className="shadow-card">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Beaker className="h-5 w-5 text-primary" />
+              Insumos Utilizados Hoy
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="space-y-2">
+                <Label htmlFor="water" className="flex items-center gap-2">
+                  <Droplets className="h-4 w-4 text-blue-500" />
+                  Agua (litros)
+                </Label>
+                <Input
+                  id="water"
+                  type="number"
+                  value={quantities.water}
+                  onChange={(e) => setQuantities(prev => ({ ...prev, water: Number(e.target.value) }))}
+                  placeholder="1500"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="fertilizer" className="flex items-center gap-2">
+                  <Beaker className="h-4 w-4 text-green-500" />
+                  Fertilizante (kg)
+                </Label>
+                <Input
+                  id="fertilizer"
+                  type="number"
+                  value={quantities.fertilizer}
+                  onChange={(e) => setQuantities(prev => ({ ...prev, fertilizer: Number(e.target.value) }))}
+                  placeholder="25"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="pesticide" className="flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-orange-500" />
+                  Plaguicida (litros)
+                </Label>
+                <Input
+                  id="pesticide"
+                  type="number"
+                  value={quantities.pesticide}
+                  onChange={(e) => setQuantities(prev => ({ ...prev, pesticide: Number(e.target.value) }))}
+                  placeholder="8"
+                />
+              </div>
+            </div>
+            
+            <div className="bg-muted/50 rounded-lg p-3">
+              <p className="text-xs text-muted-foreground">
+                💡 Estas cantidades se incluirán en el reporte generado
+              </p>
+            </div>
+          </CardContent>
+        </Card>
         {/* Generate Report Card */}
         <Card className="shadow-card">
           <CardHeader>
@@ -196,8 +275,12 @@ export default function Reports() {
                     <p className="text-muted-foreground">{currentData.humidity}%</p>
                   </div>
                   <div>
-                    <p className="font-medium">CO₂</p>
-                    <p className="text-muted-foreground">{currentData.co2} ppm</p>
+                    <p className="font-medium">pH</p>
+                    <p className="text-muted-foreground">{currentData.ph}</p>
+                  </div>
+                  <div>
+                    <p className="font-medium">NPK</p>
+                    <p className="text-muted-foreground">{currentData.npk} ppm</p>
                   </div>
                   <div>
                     <p className="font-medium">Humedad del Suelo</p>
@@ -206,6 +289,15 @@ export default function Reports() {
                   <div>
                     <p className="font-medium">Luz Solar</p>
                     <p className="text-muted-foreground">{currentData.sunlight}%</p>
+                  </div>
+                </div>
+                
+                <div className="border-t border-border pt-3">
+                  <p className="font-medium text-sm">Insumos Utilizados</p>
+                  <div className="grid grid-cols-3 gap-2 text-xs text-muted-foreground mt-1">
+                    <span>Agua: {quantities.water}L</span>
+                    <span>Fertilizante: {quantities.fertilizer}kg</span>
+                    <span>Plaguicida: {quantities.pesticide}L</span>
                   </div>
                 </div>
                 

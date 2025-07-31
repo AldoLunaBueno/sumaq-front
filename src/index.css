@@ -44,7 +44,8 @@ All colors MUST be HSL.
     /* Custom sensor colors */
     --temperature: 15 85% 60%;
     --humidity: 200 85% 55%;
-    --co2: 270 60% 60%;
+    --ph: 270 60% 60%;
+    --npk: 320 70% 55%;
     --soil: 35 60% 50%;
     --sunlight: 45 85% 60%;
 

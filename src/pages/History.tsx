@@ -1,4 +1,4 @@
-import { Clock, Thermometer, Droplets, Cloud, Sprout, Filter } from "lucide-react";
+import { Clock, Thermometer, Droplets, TestTube, Beaker, Sprout, Filter, Sun } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import { useSensorData } from "@/hooks/useSensorData";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-type SensorFilter = "all" | "temperature" | "humidity" | "co2" | "soil";
+type SensorFilter = "all" | "temperature" | "humidity" | "ph" | "npk" | "soil" | "sunlight";
 
 export default function History() {
   const { history } = useSensorData();
@@ -34,8 +34,10 @@ export default function History() {
     { id: "all" as SensorFilter, label: "Todos", icon: Filter },
     { id: "temperature" as SensorFilter, label: "Temperatura", icon: Thermometer },
     { id: "humidity" as SensorFilter, label: "Humedad", icon: Droplets },
-    { id: "co2" as SensorFilter, label: "CO₂", icon: Cloud },
+    { id: "ph" as SensorFilter, label: "pH", icon: TestTube },
+    { id: "npk" as SensorFilter, label: "NPK", icon: Beaker },
     { id: "soil" as SensorFilter, label: "Humedad del suelo", icon: Sprout },
+    { id: "sunlight" as SensorFilter, label: "Luz Solar", icon: Sun },
   ];
 
   return (
@@ -126,15 +128,28 @@ export default function History() {
                       </div>
                     )}
 
-                    {/* CO2 */}
-                    {(selectedFilter === "all" || selectedFilter === "co2") && (
+                    {/* pH */}
+                    {(selectedFilter === "all" || selectedFilter === "ph") && (
                       <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-co2/20">
-                          <Cloud className="h-4 w-4 text-co2" />
+                        <div className="p-2 rounded-lg bg-ph/20">
+                          <TestTube className="h-4 w-4 text-ph" />
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">CO₂</p>
-                          <p className="text-sm font-semibold">{reading.co2} ppm</p>
+                          <p className="text-xs text-muted-foreground">pH</p>
+                          <p className="text-sm font-semibold">{reading.ph}</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* NPK */}
+                    {(selectedFilter === "all" || selectedFilter === "npk") && (
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-npk/20">
+                          <Beaker className="h-4 w-4 text-npk" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">NPK</p>
+                          <p className="text-sm font-semibold">{reading.npk} ppm</p>
                         </div>
                       </div>
                     )}
@@ -148,6 +163,19 @@ export default function History() {
                         <div>
                           <p className="text-xs text-muted-foreground">Humedad del suelo</p>
                           <p className="text-sm font-semibold">{reading.soilHumidity}%</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Sunlight */}
+                    {(selectedFilter === "all" || selectedFilter === "sunlight") && (
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-sunlight/20">
+                          <Sun className="h-4 w-4 text-sunlight" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Luz Solar</p>
+                          <p className="text-sm font-semibold">{reading.sunlight}%</p>
                         </div>
                       </div>
                     )}

@@ -17,7 +17,8 @@ export default function Charts() {
       }),
       temperature: reading.temperature,
       humidity: reading.humidity,
-      co2: reading.co2,
+      ph: reading.ph,
+      npk: reading.npk,
       index
     }));
     
@@ -122,12 +123,55 @@ export default function Charts() {
           </CardContent>
         </Card>
 
-        {/* CO2 Bar Chart */}
+        {/* pH Chart */}
         <Card className="shadow-card">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-co2">
-              <div className="w-3 h-3 rounded-full bg-co2"></div>
-              Niveles de CO₂
+            <CardTitle className="flex items-center gap-2 text-ph">
+              <div className="w-3 h-3 rounded-full bg-ph"></div>
+              Niveles de pH
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-72 md:h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis 
+                    dataKey="time" 
+                    tick={{ fontSize: 12 }}
+                    stroke="hsl(var(--muted-foreground))"
+                  />
+                  <YAxis 
+                    tick={{ fontSize: 12 }}
+                    stroke="hsl(var(--muted-foreground))"
+                  />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--card))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px'
+                    }}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="ph" 
+                    stroke="hsl(var(--ph))" 
+                    strokeWidth={3}
+                    dot={{ fill: "hsl(var(--ph))", strokeWidth: 2, r: 4 }}
+                    activeDot={{ r: 6, stroke: "hsl(var(--ph))", strokeWidth: 2 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* NPK Bar Chart */}
+        <Card className="shadow-card">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-npk">
+              <div className="w-3 h-3 rounded-full bg-npk"></div>
+              Niveles de NPK
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -152,8 +196,8 @@ export default function Charts() {
                     }}
                   />
                   <Bar 
-                    dataKey="co2" 
-                    fill="hsl(var(--co2))"
+                    dataKey="npk" 
+                    fill="hsl(var(--npk))"
                     radius={[4, 4, 0, 0]}
                   />
                 </BarChart>

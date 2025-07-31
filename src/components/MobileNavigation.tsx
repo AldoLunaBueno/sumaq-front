@@ -1,4 +1,4 @@
-import { BarChart3, Home, List, Shield, FileText } from "lucide-react";
+import { BarChart3, Home, List, Shield, FileText, MapPin } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -7,6 +7,7 @@ const navItems = [
   { to: "/roya", icon: Shield, label: "Roya" },
   { to: "/charts", icon: BarChart3, label: "Gráficas" },
   { to: "/history", icon: List, label: "Historial" },
+  { to: "/farm", icon: MapPin, label: "Finca" },
   { to: "/reports", icon: FileText, label: "Reportes" },
 ];
 
@@ -15,7 +16,7 @@ export function MobileNavigation() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-card border-t shadow-soft z-50 safe-area-inset-bottom">
-      <div className="grid grid-cols-5 py-3 px-2">
+      <div className="grid grid-cols-6 py-3 px-2">
         {navItems.map(({ to, icon: Icon, label }) => {
           const isActive = location.pathname === to;
           return (

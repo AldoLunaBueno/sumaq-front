@@ -1,4 +1,4 @@
-import { Thermometer, Droplets, Cloud, Sprout, RefreshCw, Sun } from "lucide-react";
+import { Thermometer, Droplets, TestTube, Beaker, Sprout, RefreshCw, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SensorCard } from "@/components/SensorCard";
 import { useSensorData } from "@/hooks/useSensorData";
@@ -81,13 +81,23 @@ export default function Dashboard() {
           />
           
           <SensorCard
-            title="CO₂"
-            value={currentData.co2}
-            unit="ppm"
-            icon={Cloud}
-            colorClass="bg-co2"
+            title="pH del Suelo"
+            value={currentData.ph}
+            unit=""
+            icon={TestTube}
+            colorClass="bg-ph"
             status="good"
-            suggestion="Ideal: 350-450 ppm. Niveles equilibrados mejoran resistencia"
+            suggestion="Ideal: 6.0-7.0. pH equilibrado mejora absorción de nutrientes"
+          />
+          
+          <SensorCard
+            title="NPK"
+            value={currentData.npk}
+            unit="ppm"
+            icon={Beaker}
+            colorClass="bg-npk"
+            status="good"
+            suggestion="Ideal: 150-250 ppm. Nutrientes esenciales para crecimiento"
           />
           
           <SensorCard

@@ -5,7 +5,8 @@ export interface SensorReading {
   timestamp: Date;
   temperature: number;
   humidity: number;
-  co2: number;
+  ph: number;
+  npk: number;
   soilHumidity: number;
   sunlight: number;
 }
@@ -14,7 +15,8 @@ export function useSensorData() {
   const [currentData, setCurrentData] = useState<Omit<SensorReading, 'id' | 'timestamp'>>({
     temperature: 22.5,
     humidity: 65,
-    co2: 400,
+    ph: 6.5,
+    npk: 180,
     soilHumidity: 45,
     sunlight: 75
   });
@@ -25,11 +27,12 @@ export function useSensorData() {
   const generateRandomData = useCallback(() => {
     const temperature = Math.round((Math.random() * 10 + 18) * 10) / 10; // 18-28°C
     const humidity = Math.round(Math.random() * 40 + 40); // 40-80%
-    const co2 = Math.round(Math.random() * 200 + 350); // 350-550 ppm
+    const ph = Math.round((Math.random() * 2 + 5.5) * 10) / 10; // 5.5-7.5 pH
+    const npk = Math.round(Math.random() * 100 + 150); // 150-250 ppm
     const soilHumidity = Math.round(Math.random() * 50 + 25); // 25-75%
     const sunlight = Math.round(Math.random() * 40 + 40); // 40-80%
 
-    return { temperature, humidity, co2, soilHumidity, sunlight };
+    return { temperature, humidity, ph, npk, soilHumidity, sunlight };
   }, []);
 
   const refreshData = useCallback(async () => {

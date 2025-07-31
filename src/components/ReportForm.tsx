@@ -62,7 +62,7 @@ export function ReportForm({ onClose }: ReportFormProps) {
       await addReport(description, selectedPhotos);
       toast({
         title: "Reporte enviado",
-        description: "Tu observación ha sido registrada exitosamente",
+        description: "Analizando fotografías...",
       });
       onClose();
     } catch (error) {

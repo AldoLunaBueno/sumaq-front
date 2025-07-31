@@ -12,8 +12,8 @@ interface FarmData {
 
 export default function FarmInfo() {
   const [farmData, setFarmData] = useState<FarmData>({
-    size: 12.5,
-    location: "Valle del Cauca, Colombia",
+    size: 30,
+    location: "Amazonas, Perú",
     workers: 8
   });
 

@@ -14,7 +14,7 @@ export default function FarmInfo() {
   const [farmData, setFarmData] = useState<FarmData>({
     size: 30,
     location: "Amazonas, Perú",
-    workers: 8
+    workers: 20,
   });
 
   const [isEditing, setIsEditing] = useState(false);

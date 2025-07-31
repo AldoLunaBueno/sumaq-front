@@ -55,7 +55,7 @@ export function useSensorData() {
     setIsRefreshing(false);
   }, [generateRandomData]);
 
-  // Auto-refresh every 5 seconds
+  // Auto-refresh every 15 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       const newData = generateRandomData();
@@ -68,7 +68,7 @@ export function useSensorData() {
       };
       
       setHistory(prev => [newReading, ...prev].slice(0, 50));
-    }, 5000);
+    }, 15000);
 
     return () => clearInterval(interval);
   }, [generateRandomData]);

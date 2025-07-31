@@ -9,10 +9,9 @@ interface SensorCardProps {
   icon: LucideIcon;
   colorClass: string;
   status?: "good" | "warning" | "critical";
-  suggestion?: string;
 }
 
-export function SensorCard({ title, value, unit, icon: Icon, colorClass, status = "good", suggestion }: SensorCardProps) {
+export function SensorCard({ title, value, unit, icon: Icon, colorClass, status = "good" }: SensorCardProps) {
   const statusColors = {
     good: "text-primary",
     warning: "text-yellow-600",
@@ -23,26 +22,21 @@ export function SensorCard({ title, value, unit, icon: Icon, colorClass, status 
     <Card className="overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 animate-fade-in">
       <CardContent className="p-0">
         <div className={cn("h-2", colorClass)} />
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className={cn("p-3 rounded-full", colorClass)}>
-              <Icon className="h-6 w-6 text-white" />
+        <div className="p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className={cn("p-2 rounded-full", colorClass)}>
+              <Icon className="h-5 w-5 text-white" />
             </div>
 
-            <div className={cn("w-3 h-3 rounded-full", statusColors[status])} />
+            <div className={cn("w-2.5 h-2.5 rounded-full", statusColors[status])} />
           </div>
           
           <div className="space-y-1">
-            <p className="text-sm font-medium text-muted-foreground">{title}</p>
-            <p className="text-2xl font-bold text-foreground">
+            <p className="text-xs font-medium text-muted-foreground">{title}</p>
+            <p className="text-xl font-bold text-foreground">
               {value}
-              <span className="text-sm font-normal text-muted-foreground ml-1">{unit}</span>
+              <span className="text-xs font-normal text-muted-foreground ml-1">{unit}</span>
             </p>
-            {suggestion && (
-              <p className="text-xs text-muted-foreground/80 mt-2 leading-tight">
-                💡 {suggestion}
-              </p>
-            )}
           </div>
         </div>
       </CardContent>

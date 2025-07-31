@@ -1,4 +1,4 @@
-import { Thermometer, Droplets, TestTube, Beaker, Sprout, RefreshCw, Sun } from "lucide-react";
+import { Thermometer, Droplets, TestTube, Beaker, Sprout, RefreshCw, Sun, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SensorCard } from "@/components/SensorCard";
 import { useSensorData } from "@/hooks/useSensorData";
@@ -17,6 +17,27 @@ export default function Dashboard() {
     if (sunlight < 50) return "warning";
     if (sunlight > 90) return "critical";
     return "good";
+  };
+
+  const getRoyaWarnings = () => {
+    const warnings = [];
+    
+    // Humedad alta favorece la roya
+    if (currentData.humidity > 70) {
+      warnings.push("Humedad ambiental alta: Reducir riego y mejorar ventilación para prevenir roya");
+    }
+    
+    // Humedad del suelo alta propicia roya
+    if (currentData.soilHumidity > 70) {
+      warnings.push("Humedad del suelo alta: Evitar encharcamiento, mejorar drenaje");
+    }
+    
+    // Temperatura muy alta o muy baja puede causar estrés
+    if (currentData.temperature > 28 || currentData.temperature < 18) {
+      warnings.push("Temperatura fuera del rango ideal: Proporcionar sombra o protección según sea necesario");
+    }
+    
+    return warnings;
   };
 
   return (
@@ -59,7 +80,7 @@ export default function Dashboard() {
         </div>
 
         {/* Sensor Cards Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <SensorCard
             title="Temperatura"
             value={currentData.temperature}
@@ -67,7 +88,6 @@ export default function Dashboard() {
             icon={Thermometer}
             colorClass="bg-temperature"
             status="good"
-            suggestion="Ideal: 20-25°C. Temperaturas constantes previenen estrés y roya"
           />
           
           <SensorCard
@@ -77,7 +97,6 @@ export default function Dashboard() {
             icon={Droplets}
             colorClass="bg-humidity"
             status="good"
-            suggestion="Ideal: 40-60%. Humedad alta favorece la roya del café"
           />
           
           <SensorCard
@@ -87,7 +106,6 @@ export default function Dashboard() {
             icon={TestTube}
             colorClass="bg-ph"
             status="good"
-            suggestion="Ideal: 6.0-7.0. pH equilibrado mejora absorción de nutrientes"
           />
           
           <SensorCard
@@ -97,7 +115,6 @@ export default function Dashboard() {
             icon={Beaker}
             colorClass="bg-npk"
             status="good"
-            suggestion="Ideal: 150-250 ppm. Nutrientes esenciales para crecimiento"
           />
           
           <SensorCard
@@ -107,7 +124,6 @@ export default function Dashboard() {
             icon={Sprout}
             colorClass="bg-soil"
             status={getSoilHumidityStatus(currentData.soilHumidity)}
-            suggestion="Ideal: 50-70%. Evita encharcamiento que propicia roya"
           />
           
           <SensorCard
@@ -117,9 +133,29 @@ export default function Dashboard() {
             icon={Sun}
             colorClass="bg-sunlight"
             status={getSunlightStatus(currentData.sunlight)}
-            suggestion="Ideal: 60-80%. Luz solar adecuada fortalece defensas naturales"
           />
         </div>
+
+        {/* Roya Warnings */}
+        {getRoyaWarnings().length > 0 && (
+          <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold text-yellow-800 mb-2">
+                  ⚠️ Condiciones favorables para la roya detectadas
+                </h3>
+                <ul className="space-y-1">
+                  {getRoyaWarnings().map((warning, index) => (
+                    <li key={index} className="text-sm text-yellow-700">
+                      • {warning}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Last Update Info */}
         <div className="mt-8 text-center">
@@ -127,7 +163,7 @@ export default function Dashboard() {
             Última actualización: {new Date().toLocaleTimeString('es-ES')}
           </p>
           <p className="text-xs text-muted-foreground mt-1">
-            Los datos se actualizan automáticamente cada 5 segundos
+            Los datos se actualizan automáticamente cada 15 segundos
           </p>
         </div>
       </main>

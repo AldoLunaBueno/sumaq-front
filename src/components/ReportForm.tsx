@@ -99,7 +99,7 @@ export function ReportForm({ onClose }: ReportFormProps) {
 
           <div>
             <label className="text-sm font-medium text-foreground mb-2 block">
-              Fotos (opcional)
+              Fotos
             </label>
             
             {photoPreviews.length > 0 ? (

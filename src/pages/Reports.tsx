@@ -200,8 +200,14 @@ export default function Reports() {
                 <Input
                   id="fertilizer"
                   type="number"
-                  value={quantities.fertilizer}
-                  onChange={(e) => setQuantities(prev => ({ ...prev, fertilizer: Number(e.target.value) }))}
+                  value={quantities.fertilizer === 0 ? "" : quantities.fertilizer}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setQuantities(prev => ({
+                      ...prev,
+                      fertilizer: val === "" ? 0 : Number(val),
+                    }));
+                  }}
                   placeholder="25"
                 />
               </div>
@@ -214,8 +220,14 @@ export default function Reports() {
                 <Input
                   id="pesticide"
                   type="number"
-                  value={quantities.pesticide}
-                  onChange={(e) => setQuantities(prev => ({ ...prev, pesticide: Number(e.target.value) }))}
+                  value={quantities.pesticide === 0 ? "" : quantities.pesticide}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setQuantities(prev => ({
+                      ...prev,
+                      pesticide: val === "" ? 0 : Number(val),
+                    }));
+                  }}
                   placeholder="8"
                 />
               </div>

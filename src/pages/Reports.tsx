@@ -180,8 +180,14 @@ export default function Reports() {
                 <Input
                   id="water"
                   type="number"
-                  value={quantities.water}
-                  onChange={(e) => setQuantities(prev => ({ ...prev, water: Number(e.target.value) }))}
+                  value={quantities.water === 0 ? "" : quantities.water}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setQuantities(prev => ({
+                      ...prev,
+                      water: val === "" ? 0 : Number(val),
+                    }));
+                  }}
                   placeholder="1500"
                 />
               </div>

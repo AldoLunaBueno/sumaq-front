@@ -188,7 +188,6 @@ export default function Reports() {
                       water: val === "" ? 0 : Number(val),
                     }));
                   }}
-                  placeholder="1500"
                 />
               </div>
               
@@ -208,7 +207,6 @@ export default function Reports() {
                       fertilizer: val === "" ? 0 : Number(val),
                     }));
                   }}
-                  placeholder="25"
                 />
               </div>
               
@@ -228,7 +226,6 @@ export default function Reports() {
                       pesticide: val === "" ? 0 : Number(val),
                     }));
                   }}
-                  placeholder="8"
                 />
               </div>
             </div>

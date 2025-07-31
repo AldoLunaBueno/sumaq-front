@@ -128,11 +128,6 @@ export default function FarmInfo() {
                 <span className="text-sm text-muted-foreground">Tipo de cultivo</span>
                 <span className="font-semibold">Coffea arabica</span>
               </div>
-              
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Certificación</span>
-                <span className="font-semibold">Orgánico</span>
-              </div>
             </div>
             
             <div className="bg-muted/50 rounded-lg p-3 mt-4">

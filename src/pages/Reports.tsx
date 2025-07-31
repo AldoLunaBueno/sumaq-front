@@ -19,9 +19,9 @@ export default function Reports() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [quantities, setQuantities] = useState({
-    water: 1500,
-    fertilizer: 25,
-    pesticide: 8
+    water: 0,
+    fertilizer: 0,
+    pesticide: 0,
   });
 
   const generateReport = async () => {

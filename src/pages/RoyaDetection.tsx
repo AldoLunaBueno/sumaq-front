@@ -101,7 +101,7 @@ export default function RoyaDetection() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary" />
-              Reportes y Observaciones
+              Observaciones
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">

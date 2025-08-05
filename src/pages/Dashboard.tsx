@@ -52,10 +52,10 @@ export default function Dashboard() {
           <div className="flex items-center gap-3">
             <img
               src="logo_sq1.png"
-              alt="Logo SUMAQ TREE"
+              alt="Logo TARPUQKUNA"
               className="w-12 h-12 object-contain opacity-100"
             />
-            <h1 className="text-2xl font-bold drop-shadow-lg">SUMAQ TREE</h1>
+            <h1 className="text-2xl font-bold drop-shadow-lg">TARPUQKUNA</h1>
           </div>
           <h2 className="text-lg font-medium opacity-90 mt-2">
             Monitoreo de Cultivo

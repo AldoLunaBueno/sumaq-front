@@ -45,7 +45,7 @@ export default function Reports() {
     
     // Header
     doc.setFontSize(20);
-    doc.text('REPORTE DIARIO - SUMAQ TREE', 20, 20);
+    doc.text('REPORTE DIARIO - TARPUQKUNA', 20, 20);
     
     doc.setFontSize(12);
     doc.text(`Fecha: ${date}`, 20, 35);
@@ -144,10 +144,10 @@ export default function Reports() {
     yPos += 15;
     doc.text(`• Total de mediciones: ${history.length}`, 25, yPos);
     doc.text(`• Total de reportes de campo: ${reports.length}`, 25, yPos + 10);
-    doc.text('• Generado automáticamente por SUMAQ TREE Dashboard', 25, yPos + 20);
+    doc.text('• Generado automáticamente por TARPUQKUNA Dashboard', 25, yPos + 20);
     
     // Save the PDF
-    doc.save(`reporte-sumaq-${new Date().toISOString().split('T')[0]}.pdf`);
+    doc.save(`reporte-tarpuqkuna-${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
   return (
@@ -155,7 +155,7 @@ export default function Reports() {
       {/* Header */}
       <header className="bg-gradient-coffee text-white px-6 pt-12 pb-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-2">SUMAQ TREE</h1>
+          <h1 className="text-2xl font-bold mb-2">TARPUQKUNA</h1>
           <h2 className="text-lg font-medium opacity-90">Reportes del Sistema</h2>
         </div>
       </header>

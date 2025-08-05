@@ -30,7 +30,7 @@ export default function Charts() {
       {/* Header */}
       <header className="bg-gradient-earth text-white px-6 pt-12 pb-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-2">SUMAQ TREE</h1>
+          <h1 className="text-2xl font-bold mb-2">TARPUQKUNA</h1>
           <h2 className="text-lg font-medium opacity-90">Gráficas de Sensores</h2>
         </div>
       </header>

@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'app.lovable.906868ae8fd24773be3141aac1e9d836',
-  appName: 'SUMAQ TREE Dashboard',
+  appName: 'TARPUQKUNA Dashboard',
   webDir: 'dist',
   server: {
     url: 'https://906868ae-8fd2-4773-be31-41aac1e9d836.lovableproject.com?forceHideBadge=true',

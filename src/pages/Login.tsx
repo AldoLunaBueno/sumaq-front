@@ -21,7 +21,7 @@ export default function Login() {
         className="relative text-foreground px-6 pt-12 pb-8 bg-cover bg-center"
         style={{ backgroundImage: "url('fondoweb.png')" }}
       >
-        <div className="bg-black/30 absolute inset-0"></div>
+        <div className="bg-black bg-opacity-30 absolute inset-0"></div>
         <div className="relative text-center flex flex-col items-center">
           <div className="flex items-center gap-3">
             <img
@@ -29,7 +29,7 @@ export default function Login() {
               alt="Logo TARPUQKUNA"
               className="w-12 h-12 object-contain"
             />
-            <h1 className="text-2xl font-bold drop-shadow">TARPUQKUNA</h1>
+            <h1 className="text-2xl font-bold drop-shadow-lg">TARPUQKUNA</h1>
           </div>
           <h2 className="text-lg font-medium opacity-90 mt-2">Acceso seguro</h2>
         </div>

@@ -45,7 +45,7 @@ export default function Dashboard() {
       {/* Header */}
       <header
         className="relative text-white px-6 pt-12 pb-8 bg-cover bg-center"
-        style={{ backgroundImage: "url('fondo1.jpg')" }}
+        style={{ backgroundImage: "url('')" }}
       >
         <div className="bg-black bg-opacity-30 absolute inset-0"></div>
         <div className="relative text-center flex flex-col items-center">

@@ -10,6 +10,9 @@ import RoyaDetection from "./pages/RoyaDetection";
 import Reports from "./pages/Reports";
 import FarmInfo from "./pages/FarmInfo";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import RequireAuth from "./auth/RequireAuth";
+import { AuthButtons } from "./components/AuthButtons";
 
 const queryClient = new QueryClient();
 
@@ -20,13 +23,15 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <div className="overscroll-y-contain touch-manipulation select-none">
+          <AuthButtons />
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/roya" element={<RoyaDetection />} />
-            <Route path="/charts" element={<Charts />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/farm" element={<FarmInfo />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<RequireAuth><Dashboard /></RequireAuth>} />
+            <Route path="/roya" element={<RequireAuth><RoyaDetection /></RequireAuth>} />
+            <Route path="/charts" element={<RequireAuth><Charts /></RequireAuth>} />
+            <Route path="/history" element={<RequireAuth><History /></RequireAuth>} />
+            <Route path="/reports" element={<RequireAuth><Reports /></RequireAuth>} />
+            <Route path="/farm" element={<RequireAuth><FarmInfo /></RequireAuth>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

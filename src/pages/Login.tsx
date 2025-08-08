@@ -18,7 +18,7 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-background">
       <header
-        className="relative text-foreground px-6 pt-12 pb-8 bg-cover bg-center"
+        className="relative text-white px-6 pt-12 pb-8 bg-cover bg-center"
         style={{ backgroundImage: "url('fondoweb.png')" }}
       >
         <div className="bg-black bg-opacity-30 absolute inset-0"></div>

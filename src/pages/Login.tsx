@@ -31,7 +31,7 @@ export default function Login() {
             />
             <h1 className="text-2xl font-bold drop-shadow-lg">TARPUQKUNA</h1>
           </div>
-          <h2 className="text-lg font-medium opacity-90 mt-2">Acceso seguro</h2>
+          <h2 className="text-lg font-medium opacity-90 mt-2">Bienvenido</h2>
         </div>
       </header>
 

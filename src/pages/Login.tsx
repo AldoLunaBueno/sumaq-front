@@ -48,26 +48,9 @@ export default function Login() {
               }
               disabled={isLoading}
             >
-              Iniciar sesión con correo
+              Iniciar sesión
             </Button>
 
-            <Button
-              className="w-full"
-              size="lg"
-              variant="outline"
-              onClick={() =>
-                loginWithRedirect({
-                  appState: { returnTo: from },
-                  authorizationParams: {},
-                  // For Universal Login with Google connection enabled in Auth0
-                  // @ts-expect-error connection is supported at runtime
-                  connection: "google-oauth2",
-                })
-              }
-              disabled={isLoading}
-            >
-              Continuar con Google
-            </Button>
           </div>
         </div>
 

@@ -16,48 +16,44 @@ export default function Login() {
   }, [isAuthenticated, from, navigate]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <header
-        className="relative text-white px-6 pt-12 pb-8 bg-cover bg-center"
-        style={{ backgroundImage: "url('fondoweb.png')" }}
-      >
-        <div className="bg-black bg-opacity-30 absolute inset-0"></div>
-        <div className="relative text-center flex flex-col items-center">
-          <div className="flex items-center gap-3">
-            <img
-              src="logo_sq1.png"
-              alt="Logo TARPUQKUNA"
-              className="w-12 h-12 object-contain"
-            />
-            <h1 className="text-2xl font-bold drop-shadow-lg">TARPUQKUNA</h1>
-          </div>
-          <h2 className="text-lg font-medium opacity-90 mt-2">Bienvenido</h2>
-        </div>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-green-900 via-green-700 to-emerald-500">
+      {/* Header */}
+      <header className="flex flex-col items-center justify-center flex-1 text-white text-center px-6">
+        <img
+          src="logo_sq1.png"
+          alt="Logo TARPUQKUNA"
+          className="w-20 h-20 mb-4 rounded-lg shadow-lg bg-white/10 p-2 backdrop-blur-sm"
+        />
+        <h1 className="text-3xl font-bold tracking-wide drop-shadow-lg">
+          TARPUQKUNA
+        </h1>
+        <h2 className="text-lg font-medium opacity-90 mt-2">
+          Bienvenido al panel de monitoreo
+        </h2>
       </header>
 
-      <main className="px-6 py-10 max-w-md mx-auto">
-        <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
-          <h1 className="text-xl font-semibold mb-4 text-center">Inicia sesión</h1>
-
-          <div className="grid gap-3">
-            <Button
-              className="w-full"
-              size="lg"
-              onClick={() =>
-                loginWithRedirect({ appState: { returnTo: from } })
-              }
-              disabled={isLoading}
-            >
-              Iniciar sesión
-            </Button>
-
-          </div>
+      {/* Login Card */}
+      <main className="flex justify-center pb-20">
+        <div className="bg-white/90 backdrop-blur-md border border-white/30 rounded-2xl p-8 shadow-lg w-full max-w-md">
+          <h1 className="text-2xl font-semibold mb-6 text-center text-gray-800">
+            Inicia sesión
+          </h1>
+          <Button
+            className="w-full py-6 text-lg bg-emerald-600 hover:bg-emerald-700 transition-colors"
+            size="lg"
+            onClick={() =>
+              loginWithRedirect({ appState: { returnTo: from } })
+            }
+            disabled={isLoading}
+          >
+            🚀 Entrar al dashboard
+          </Button>
+          <p className="text-center text-sm text-gray-500 mt-4">
+            Serás redirigido al panel tras iniciar sesión correctamente.
+          </p>
         </div>
-
-        <p className="text-center text-sm text-muted-foreground mt-6">
-          Serás redirigido al panel tras iniciar sesión correctamente.
-        </p>
       </main>
     </div>
   );
 }
+

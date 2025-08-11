@@ -16,7 +16,7 @@ createRoot(document.getElementById("root")!).render(
   <Auth0Provider
     domain={domain}
     clientId={clientId}
-    authorizationParams={{ redirect_uri: "https://tarpuqkuna.lat" }}
+    authorizationParams={{ redirect_uri: "https://tarpuqkuna.lat/login" }}
     onRedirectCallback={onRedirectCallback}
   >
     <App />

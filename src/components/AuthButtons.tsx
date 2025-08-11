@@ -16,7 +16,7 @@ export function AuthButtons() {
         <Button
           size="sm"
           variant="outline"
-          onClick={() => logout({ logoutParams: { returnTo: window.location.origin + "/login" } })}
+          onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
         >
           Cerrar sesión
         </Button>

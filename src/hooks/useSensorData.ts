@@ -40,7 +40,7 @@ export function useSensorData() {
   }, []);
 
   useEffect(() => {
-    const ws = new WebSocket(`${apiUrl.replace(/^https/, "wss")}/wss`);
+    const ws = new WebSocket(`${apiUrl.replace(/^https/, "wss")}/ws`);
 
     ws.onmessage = (event) => {
       try {

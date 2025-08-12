@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+
 export interface SensorReading {
   id: string;
   timestamp: Date;
@@ -11,7 +12,8 @@ export interface SensorReading {
 }
 
 export function useSensorData() {
-  const apiUrl =  "https://api.tarpuqkuna.lat";
+  const apiUrl = "https://api.tarpuqkuna.lat";
+  
   const zeroData = {
     temperature: 0,
     humidity: 0,
@@ -25,70 +27,49 @@ export function useSensorData() {
   const [history, setHistory] = useState<SensorReading[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const refreshData = useCallback(() => {
-    setIsRefreshing(true);
-    setCurrentData(zeroData);
+  const refreshData = useCallback(async () => {
+    try {
+      setIsRefreshing(true);
 
-    const newReading: SensorReading = {
-      id: Date.now().toString(),
-      timestamp: new Date(),
-      ...zeroData
-    };
+      const res = await fetch(`${apiUrl}/latest`);
+      if (!res.ok) throw new Error(`Error ${res.status}`);
 
-    setHistory(prev => [newReading, ...prev].slice(0, 50));
-    setIsRefreshing(false);
-  }, []);
+      const realData = await res.json();
 
-  useEffect(() => {
-    const ws = new WebSocket(`${apiUrl.replace(/^https/, "wss")}/ws`);
+      setCurrentData({
+        temperature: realData.temperature ?? 0,
+        humidity: realData.humidity ?? 0,
+        ph: 0,
+        npk: 0,
+        soilHumidity: realData.soilMoisture ?? 0,
+        sunlight: 0
+      });
 
-    ws.onmessage = (event) => {
-      try {
-        const realData = JSON.parse(event.data);
-
-        setCurrentData({
-          temperature: realData.temperature ?? 0,
-          humidity: realData.humidity ?? 0,
-          ph: 0,
-          npk: 0,
-          soilHumidity: realData.soilMoisture ?? 0,
-          sunlight: 0
-        });
-
-        const newReading: SensorReading = {
-          id: Date.now().toString(),
-          timestamp: new Date(realData.timestamp || Date.now()),
-          temperature: realData.temperature ?? 0,
-          humidity: realData.humidity ?? 0,
-          ph: 0,
-          npk: 0,
-          soilHumidity: realData.soilMoisture ?? 0,
-          sunlight: 0
-        };
-
-        setHistory(prev => [newReading, ...prev].slice(0, 50));
-      } catch (err) {
-        console.error("Error procesando datos WS:", err);
-      }
-    };
-
-    return () => ws.close();
-  }, [apiUrl]);
-
-  // Cada 15 s, si no llega nada, seguimos enviando ceros
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentData(zeroData);
       const newReading: SensorReading = {
         id: Date.now().toString(),
-        timestamp: new Date(),
-        ...zeroData
+        timestamp: new Date(realData.timestamp || Date.now()),
+        temperature: realData.temperature ?? 0,
+        humidity: realData.humidity ?? 0,
+        ph: 0,
+        npk: 0,
+        soilHumidity: realData.soilMoisture ?? 0,
+        sunlight: 0
       };
-      setHistory(prev => [newReading, ...prev].slice(0, 50));
-    }, 15000);
 
+      setHistory(prev => [newReading, ...prev].slice(0, 50));
+    } catch (err) {
+      console.error("Error obteniendo datos:", err);
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [apiUrl]);
+
+  // Llamar a refreshData cada 5 segundos
+  useEffect(() => {
+    refreshData(); // primera carga
+    const interval = setInterval(refreshData, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [refreshData]);
 
   return {
     currentData,

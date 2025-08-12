@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 
+const API_URL = "https://api.tarpuqkuna.lat"
+
 export interface SensorReading {
   id: string;
   timestamp: Date;
@@ -11,7 +13,8 @@ export interface SensorReading {
   sunlight: number;
 }
 
-export function useSensorData(apiUrl: string) {
+export function useSensorData() {
+  const apiUrl = API_URL;
   const zeroData = {
     temperature: 0,
     humidity: 0,
@@ -46,15 +49,14 @@ export function useSensorData(apiUrl: string) {
       try {
         const realData = JSON.parse(event.data);
 
-        setCurrentData(prev => ({
-          ...prev,
+        setCurrentData({
           temperature: realData.temperature ?? 0,
           humidity: realData.humidity ?? 0,
-          soilHumidity: realData.soilMoisture ?? 0,
           ph: 0,
           npk: 0,
+          soilHumidity: realData.soilMoisture ?? 0,
           sunlight: 0
-        }));
+        });
 
         const newReading: SensorReading = {
           id: Date.now().toString(),
@@ -68,7 +70,6 @@ export function useSensorData(apiUrl: string) {
         };
 
         setHistory(prev => [newReading, ...prev].slice(0, 50));
-
       } catch (err) {
         console.error("Error procesando datos WS:", err);
       }

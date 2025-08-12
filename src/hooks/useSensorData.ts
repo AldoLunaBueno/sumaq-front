@@ -1,7 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-
-const API_URL = "https://api.tarpuqkuna.lat"
-
 export interface SensorReading {
   id: string;
   timestamp: Date;
@@ -14,7 +11,7 @@ export interface SensorReading {
 }
 
 export function useSensorData() {
-  const apiUrl = API_URL;
+  const apiUrl =  "https://api.tarpuqkuna.lat";
   const zeroData = {
     temperature: 0,
     humidity: 0,

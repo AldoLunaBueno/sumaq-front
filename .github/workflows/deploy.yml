@@ -32,4 +32,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Sincronizar archivos a S3
-        run: aws s3 sync dist/ s3://sumaq-front --delete
+        run: aws s3 sync dist/ s3://sumaq-front --delete --cache-control "max-age=0, no-cache, no-store, must-revalidate"

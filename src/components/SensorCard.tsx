@@ -30,9 +30,9 @@ export function SensorCard({
 
   const cardAlertBackground =
     status === "warning"
-      ? "bg-yellow-500/10"
+      ? "bg-yellow-500/40"
       : status === "critical"
-      ? "bg-red-500/10"
+      ? "bg-red-500/40"
       : "";
 
   return (

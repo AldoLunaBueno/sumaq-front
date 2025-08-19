@@ -79,7 +79,7 @@ export function useSensorData() {
   useEffect(() => {
     console.log("%c[FRONT] Cargando datos iniciales...", "color: teal; font-weight: bold");
     refreshData();
-    const interval = setInterval(refreshData, 5000);
+    const interval = setInterval(refreshData, 15000);
     return () => {
       console.log("%c[FRONT] Deteniendo actualizaciones", "color: darkred; font-weight: bold");
       clearInterval(interval);

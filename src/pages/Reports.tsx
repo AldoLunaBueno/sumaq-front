@@ -77,7 +77,7 @@ export default function Reports() {
     // Roya detection
     yPos += 40;
     doc.setFontSize(16);
-    doc.text('DETECCIÓN DE ROYA:', 20, yPos);
+    doc.text('DETECCIÓN DE Plaga:', 20, yPos);
     
     doc.setFontSize(12);
     yPos += 15;

@@ -12,72 +12,63 @@ export interface SensorReading {
 }
 
 export function useSensorData() {
-  const apiUrl = "https://api.tarpuqkuna.lat";
-
   const zeroData = {
     temperature: 0,
     humidity: 0,
     ph: 0,
     npk: 0,
     soilHumidity: 0,
-    sunlight: 0
+    sunlight: 0,
   };
 
   const [currentData, setCurrentData] = useState<Omit<SensorReading, "id" | "timestamp">>(zeroData);
   const [history, setHistory] = useState<SensorReading[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  // Función para generar número aleatorio dentro de un rango
+  const getRandomInRange = (min: number, max: number) =>
+    parseFloat((Math.random() * (max - min) + min).toFixed(1));
+
   const refreshData = useCallback(async () => {
-    console.log("%c[FRONT] Iniciando petición a API...", "color: blue; font-weight: bold");
+    console.log("%c[FRONT] Generando datos simulados...", "color: blue; font-weight: bold");
 
     try {
       setIsRefreshing(true);
 
-      const res = await fetch(`${apiUrl}/latest`);
-      console.log("%c[FRONT] Respuesta cruda recibida:", "color: green; font-weight: bold", res);
+      // 🚀 Aquí simulamos los valores
+      const simulatedData = {
+        temperature: getRandomInRange(15, 35),
+        humidity: getRandomInRange(30, 90),
+        ph: getRandomInRange(4.5, 8),
+        npk: getRandomInRange(100, 1000),
+        soilHumidity: getRandomInRange(20, 80),
+        sunlight: getRandomInRange(10, 100),
+      };
 
-      if (!res.ok) throw new Error(`Error ${res.status}`);
-
-      const realData = await res.json();
-      console.log("%c[FRONT] Datos procesados (JSON):", "color: purple; font-weight: bold", realData);
-
-      setCurrentData({
-        temperature: realData.temperature ?? 0,
-        humidity: realData.humidity ?? 0,
-        ph: 0,
-        npk: 0,
-        soilHumidity: realData.soilMoisture ?? 0,
-        sunlight: 0
-      });
+      setCurrentData(simulatedData);
 
       const newReading: SensorReading = {
         id: Date.now().toString(),
-        timestamp: new Date(realData.timestamp || Date.now()),
-        temperature: realData.temperature ?? 0,
-        humidity: realData.humidity ?? 0,
-        ph: 0,
-        npk: 0,
-        soilHumidity: realData.soilMoisture ?? 0,
-        sunlight: 0
+        timestamp: new Date(),
+        ...simulatedData,
       };
 
-      setHistory(prev => {
+      setHistory((prev) => {
         const updated = [newReading, ...prev].slice(0, 50);
         console.log("%c[FRONT] Historial actualizado:", "color: orange; font-weight: bold", updated);
         return updated;
       });
-
     } catch (err) {
-      console.error("%c[FRONT] Error obteniendo datos:", "color: red; font-weight: bold", err);
+      console.error("%c[FRONT] Error simulando datos:", "color: red; font-weight: bold", err);
     } finally {
       setIsRefreshing(false);
       console.log("%c[FRONT] Finalizó ciclo de actualización", "color: gray; font-weight: bold");
     }
-  }, [apiUrl]);
+  }, []);
 
-  // Llamar a refreshData cada 5 segundos
+  // Llamar a refreshData cada 15 segundos
   useEffect(() => {
-    console.log("%c[FRONT] Cargando datos iniciales...", "color: teal; font-weight: bold");
+    console.log("%c[FRONT] Cargando datos iniciales (simulados)...", "color: teal; font-weight: bold");
     refreshData();
     const interval = setInterval(refreshData, 15000);
     return () => {
@@ -90,6 +81,6 @@ export function useSensorData() {
     currentData,
     history,
     isRefreshing,
-    refreshData
+    refreshData,
   };
 }

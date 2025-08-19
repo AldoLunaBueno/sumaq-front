@@ -162,13 +162,13 @@ export default function RoyaDetection() {
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground space-y-2">
             <p>
-              <strong>Verde:</strong> Sin signos de roya detectados. Cultivo saludable.
+              <strong>Verde:</strong> Sin signos de plaga detectados. Cultivo saludable.
             </p>
             <p>
               <strong>Amarillo:</strong> Posibles signos tempranos. Monitoreo recomendado.
             </p>
             <p>
-              <strong>Rojo:</strong> Signos evidentes de roya. Acción inmediata requerida.
+              <strong>Rojo:</strong> Signos evidentes de plaga. Acción inmediata requerida.
             </p>
           </CardContent>
         </Card>

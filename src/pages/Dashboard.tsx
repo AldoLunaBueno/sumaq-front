@@ -100,7 +100,7 @@ export default function Dashboard() {
           />
           
           <SensorCard
-            title="pH del Suelo"
+            title="Acidez del suelo"
             value={currentData.ph}
             unit=""
             icon={TestTube}
@@ -109,7 +109,7 @@ export default function Dashboard() {
           />
           
           <SensorCard
-            title="NPK"
+            title="Nutrientes del suelo"
             value={currentData.npk}
             unit="ppm"
             icon={Beaker}

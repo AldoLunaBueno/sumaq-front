@@ -251,7 +251,7 @@ export default function Reports() {
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">
               Crea un reporte completo con los datos actuales de sensores, 
-              estado del cultivo y detección de roya.
+              estado del cultivo y detección de plaga.
             </p>
             
             <Button
@@ -320,7 +320,7 @@ export default function Reports() {
                 </div>
                 
                 <div className="border-t border-border pt-3">
-                  <p className="font-medium text-sm">Detección de Roya</p>
+                  <p className="font-medium text-sm">Detección de plaga</p>
                   <p className="text-sm text-muted-foreground">
                     {detection.status} - Riesgo: {detection.risk}
                   </p>
@@ -364,7 +364,7 @@ export default function Reports() {
             </div>
             
             <div className="flex justify-between items-center">
-              <span className="text-sm text-muted-foreground">Estado de roya</span>
+              <span className="text-sm text-muted-foreground">Estado de plaga</span>
               <span className="font-semibold">{detection.status}</span>
             </div>
             

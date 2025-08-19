@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 
 export type RoyaRisk = "Bajo" | "Medio" | "Alto";
-export type RoyaStatus = "Sin roya detectada" | "Posible presencia de roya";
+export type RoyaStatus = "Sin plaga detectada" | "Posible presencia de roya";
 
 export interface RoyaDetection {
   status: RoyaStatus;
@@ -12,7 +12,7 @@ export interface RoyaDetection {
 
 export function useRoyaDetection() {
   const [detection, setDetection] = useState<RoyaDetection>({
-    status: "Sin roya detectada",
+    status: "Sin plaga detectada",
     risk: "Bajo",
     lastScan: null,
     confidence: 95
@@ -32,7 +32,7 @@ export function useRoyaDetection() {
     let confidence: number;
     
     if (randomValue < 0.7) {
-      newStatus = "Sin roya detectada";
+      newStatus = "Sin plaga detectada";
       newRisk = "Bajo";
       confidence = Math.round(85 + Math.random() * 15);
     } else if (randomValue < 0.9) {

@@ -48,7 +48,7 @@ export default function RoyaDetection() {
           <CardContent className="space-y-4">
             <div className="text-center">
               <div className="mb-4">
-                {detection.status === "Sin roya detectada" ? (
+                {detection.status === "Sin plaga detectada" ? (
                   <Leaf className="h-16 w-16 text-green-600 mx-auto" />
                 ) : (
                   <AlertTriangle className="h-16 w-16 text-yellow-600 mx-auto" />
@@ -158,7 +158,7 @@ export default function RoyaDetection() {
         {/* Information Card */}
         <Card className="shadow-card">
           <CardHeader>
-            <CardTitle className="text-sm">Información sobre la Roya</CardTitle>
+            <CardTitle className="text-sm">Más información</CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground space-y-2">
             <p>

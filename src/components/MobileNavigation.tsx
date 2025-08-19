@@ -15,7 +15,7 @@ export function MobileNavigation() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-card border-t shadow-soft z-50 safe-area-inset-bottom">
-      <div className="grid grid-cols-6 py-3 px-2">
+      <div className="grid grid-flow-col auto-cols-fr justify-center py-3 px-2">
         {navItems.map(({ to, icon: Icon, label }) => {
           const isActive = location.pathname === to;
           return (

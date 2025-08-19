@@ -28,9 +28,19 @@ export function SensorCard({
     critical: "text-destructive",
   };
 
+  const cardAlertBackground =
+    status === "warning"
+      ? "bg-yellow-500/10"
+      : status === "critical"
+      ? "bg-red-500/10"
+      : "";
+
   return (
     <Card
-      className="overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 animate-fade-in cursor-pointer"
+      className={cn(
+        "overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 animate-fade-in cursor-pointer",
+        cardAlertBackground // Fondo de alerta según status
+      )}
       onClick={() => setExpanded(!expanded)}
     >
       <CardContent className="p-0 relative">

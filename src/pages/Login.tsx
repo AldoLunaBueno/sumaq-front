@@ -28,7 +28,7 @@ export default function Login() {
           TARPUQKUNA
         </h1>
         <h2 className="text-lg font-medium opacity-90 mt-2">
-          Bienvenido al panel de monitoreo
+          Bienvenido
         </h2>
       </header>
 
